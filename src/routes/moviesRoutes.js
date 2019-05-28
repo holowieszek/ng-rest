@@ -1,17 +1,11 @@
 import { Router } from 'express';
 
+import * as moviesController from '../controllers/movies';
+
 const router = Router();
 
-router.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Movies GET'
-  });
-});
+router.get('/', moviesController.fetchAll);
 
-router.post('/', (req, res) => {
-  res.status(201).json({
-    message: 'Movies POST'
-  });
-});
+router.post('/', moviesController.create);
 
 export default router;
