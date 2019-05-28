@@ -7,7 +7,7 @@ import asyncWrapper from '../utils/asyncWrapper';
 export async function fetchAll(req, res, next) {
   const { error, data } = await asyncWrapper(moviesService.fetchAllMovies());
 
-  !error ? returnResponse(res, HttpStatus.CREATED, data) : next(error);
+  !error ? returnResponse(res, HttpStatus.OK, data) : next(error);
 }
 
 export async function create(req, res, next) {
