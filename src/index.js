@@ -2,11 +2,13 @@ import './env';
 
 import express from 'express';
 import morgan from 'morgan';
-import logger, { logStream } from './utils/logger';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import bodyParser from 'body-parser';
+
+import logger, { logStream } from './utils/logger';
+import * as errorHandler from './middlewares/errorHandler';
 
 const app = express();
 
@@ -21,6 +23,12 @@ app.use(helmet());
 app.use(compression());
 app.use(bodyParser.json());
 app.use(morgan('tiny', { stream: logStream }));
+app.use(errorHandler.bodyParser);
+
+// Error Handlers
+app.use(errorHandler.genericErrorHandler);
+app.use(errorHandler.notFound);
+app.use(errorHandler.methodNotAllowed);
 
 app.listen(app.get('port'), app.get('host'), () => {
   logger.info(`Server works on ${app.get('host')}:${app.get('port')}`);
