@@ -2,17 +2,18 @@ import HttpStatus from 'http-status-codes';
 
 import { returnResponse } from '../utils/response';
 import * as moviesService from '../services/moviesServices';
+import asyncWrapper from '../utils/asyncWrapper';
 
-export function fetchAll(req, res, next) {
-  return moviesService
-    .fetchAllMovies()
-    .then(data => returnResponse(res, HttpStatus.OK, data))
-    .catch(err => next(err));
+export async function fetchAll(req, res, next) {
+  const { error, data } = await asyncWrapper(moviesService.fetchAllMovies());
+
+  !error ? returnResponse(res, HttpStatus.CREATED, data) : next(error);
 }
 
-export function create(req, res, next) {
-  moviesService
-    .createMovie()
-    .then(data => returnResponse(res, HttpStatus.CREATED, data))
-    .catch(err => next(err));
+export async function create(req, res, next) {
+  const { name } = req.body;
+
+  const { error, data } = await asyncWrapper(moviesService.createMovie(name));
+
+  !error ? returnResponse(res, HttpStatus.CREATED, data) : next(error);
 }
