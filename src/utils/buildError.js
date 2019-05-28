@@ -26,7 +26,7 @@ function buildError(err) {
   // Return INTERNAL_SERVER_ERROR for all other cases
   return {
     code: HttpStatus.INTERNAL_SERVER_ERROR,
-    message: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR)
+    message: err.code || HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR)
   };
 }
 
