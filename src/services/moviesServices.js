@@ -6,11 +6,12 @@ export function fetchAllMovies() {
 
 export function createMovie(movie) {
   const { data } = movie;
-  let movieInformations = {}
+  const movieInformations = {}
 
-  for (var key in data) {
+  for (const key in data) {
     if (data.hasOwnProperty(key)) {
-      let keyToLowerCase = key.toLowerCase();
+      const keyToLowerCase = key.toLowerCase();
+
       movieInformations[keyToLowerCase] = data[key];
     }
   }
