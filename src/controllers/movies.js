@@ -1,9 +1,17 @@
 import HttpStatus from 'http-status-codes';
 
+import * as moviesService from '../services/moviesServices';
+
 export function fetchAll(req, res, next) {
-  res.status(HttpStatus.OK).json('fetch all movies');
+  return moviesService
+    .fetchAllMovies()
+    .then(data => res.status(HttpStatus.OK).json({ data }))
+    .catch(err => next(err));
 }
 
 export function create(req, res, next) {
-  res.status(HttpStatus.CREATED).json('create new movie');
+  moviesService
+    .createMovie()
+    .then(data => res.status(HttpStatus.CREATED).json({ data }))
+    .catch(err => next(err));
 }
