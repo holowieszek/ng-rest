@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 
 import logger, { logStream } from './utils/logger';
 import * as errorHandler from './middlewares/errorHandler';
+import routes from './routes';
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(morgan('tiny', { stream: logStream }));
 app.use(errorHandler.bodyParser);
+
+// Routing
+app.use('/api', routes);
 
 // Error Handlers
 app.use(errorHandler.genericErrorHandler);
