@@ -4,7 +4,7 @@ export function fetchAllMovies() {
   return Movie.fetchAll();
 }
 
-export function createMovie(movie) {
+export async function createMovie(movie) {
   const { data } = movie;
   const movieInformations = {}
 
@@ -18,5 +18,7 @@ export function createMovie(movie) {
 
   const { ratings, response, ...parsedData } = movieInformations;
 
-  return Movie.forge(parsedData).save();
+  const movieQuery = await Movie.forge(parsedData).save();
+  
+  return movieQuery;
 }
