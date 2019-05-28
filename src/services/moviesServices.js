@@ -1,11 +1,9 @@
+import Movie from '../models/movie';
+
 export function fetchAllMovies() {
-  return new Promise(resolve => {
-    resolve('fetch all movies');
-  });
+  return Movie.fetchAll();
 }
 
-export function createMovie() {
-  return new Promise(resolve => {
-    resolve('create new movie');
-  });
+export function createMovie(name) {
+  return Movie.forge({ name }).save();
 }
