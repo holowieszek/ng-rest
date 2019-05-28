@@ -1,6 +1,8 @@
 import './env';
 
 import express from 'express';
+import morgan from 'morgan';
+import logger, { logStream } from './utils/logger';
 
 const app = express();
 
@@ -10,4 +12,8 @@ app.set('host', process.env.APP_HOST);
 app.locals.title = process.env.APP_NAME;
 app.locals.version = process.env.APP_VERSION;
 
-app.listen(app.get('port'), app.get('host'), () => {});
+app.use(morgan('tiny', { stream: logStream }));
+
+app.listen(app.get('port'), app.get('host'), () => {
+  logger.info(`Server works on ${app.get('host')}:${app.get('port')}`);
+});
