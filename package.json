@@ -1,0 +1,50 @@
+{
+  "name": "ng-rest",
+  "version": "1.0.0",
+  "description": "Netguru REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint 'src/**/*.js'",
+    "lint:fix": "eslint 'src/**/*.js' --fix",
+    "prettier": "prettier --write **/*.{js,json,yml,yaml,md}",
+    "start": "node dist",
+    "start:dev": "nodemon --watch .env --watch src --exec babel-node src --source-maps"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{md,yml,yml,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "author": "Mateusz Hołowieszko",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "eslint": "^5.16.0",
+    "eslint-config-leapfrog": "^2.0.0-beta.0",
+    "eslint-config-prettier": "^4.3.0",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.17.1"
+  }
+}
