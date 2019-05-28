@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import logger, { logStream } from './utils/logger';
 import cors from 'cors';
 import helmet from 'helmet';
+import compression from 'compression';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.locals.version = process.env.APP_VERSION;
 
 app.use(cors());
 app.use(helmet());
+app.use(compression());
 app.use(morgan('tiny', { stream: logStream }));
 
 app.listen(app.get('port'), app.get('host'), () => {
