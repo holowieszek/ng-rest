@@ -1,6 +1,4 @@
-require('dotenv').config({ path: __dirname + '/../.env' });
-
-import axios from 'axios';
+import axios from '../axios';
 import Boom from 'boom';
 import asyncWrapper from '../utils/asyncWrapper';
 
@@ -17,7 +15,7 @@ const omdbApi = async (req, res, next) => {
 };
 
 const apiCall = title => {
-  return axios.get(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API}&t=${title}`);
+  return axios.get(`http://www.omdbapi.com/?t=${title}`);
 };
 
 export default omdbApi;
