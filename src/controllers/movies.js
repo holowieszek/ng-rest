@@ -5,15 +5,13 @@ import * as moviesService from '../services/moviesServices';
 import asyncWrapper from '../utils/asyncWrapper';
 
 export async function fetchAll(req, res, next) {
-  const { error, data } = await asyncWrapper(moviesService.fetchAllMovies());
+  const { error, result } = await asyncWrapper(moviesService.fetchAllMovies());
 
-  !error ? returnResponse(res, HttpStatus.OK, data) : next(error);
+  !error ? returnResponse(res, HttpStatus.OK, result) : next(error);
 }
 
 export async function create(req, res, next) {
-  const { name } = req.body;
+  const { error, result } = await asyncWrapper(moviesService.createMovie(res.locals.omdb));
 
-  const { error, data } = await asyncWrapper(moviesService.createMovie(name));
-
-  !error ? returnResponse(res, HttpStatus.CREATED, data) : next(error);
+  !error ? returnResponse(res, HttpStatus.CREATED, result) : next(error);
 }
