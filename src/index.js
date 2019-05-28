@@ -31,10 +31,15 @@ app.use(errorHandler.bodyParser);
 app.use('/api', routes);
 
 // Error Handlers
-app.use(errorHandler.genericErrorHandler);
 app.use(errorHandler.notFound);
-app.use(errorHandler.methodNotAllowed);
+// app.use(errorHandler.methodNotAllowed);
+app.use(errorHandler.genericErrorHandler);
 
 app.listen(app.get('port'), app.get('host'), () => {
   logger.info(`Server works on ${app.get('host')}:${app.get('port')}`);
+});
+
+// Catch unhandled rejections
+process.on('unhandledRejection', err => {
+  logger.error('Unhandled rejection', err);
 });
