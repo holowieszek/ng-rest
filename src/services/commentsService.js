@@ -7,7 +7,9 @@ export function fetchAllComments() {
 export async function createComment(data) {
   const { author, comment, movieId } = data;
 
-  const commentQuery = await Comment.forge({ author, comment, movie_id: movieId }).save();
+  const commentData = { author, comment, movie_id: movieId };
+
+  const commentQuery = await Comment.forge(commentData).save();
 
   return commentQuery;
 }
