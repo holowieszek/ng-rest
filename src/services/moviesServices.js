@@ -1,11 +1,31 @@
 import Movie from '../models/movie';
+import Rating from '../models/rating';
 
 export function fetchAllMovies() {
-  return Movie.fetchAll();
+  return Movie.fetchAll({ withRelated: 'ratings' });
 }
 
 export async function createMovie(movie) {
+  const { ratings, response, ...parsedData } = prepareMovieInformations(movie);
+
+  const movieQuery = await Movie.forge(parsedData).save();
+
+  const ratingsInformation = ratings.map(rating => ({
+    movie_id: movieQuery.id,
+    source: rating.Source,
+    value: rating.Value
+  }))
+
+  ratingsInformation.forEach(async rating => {
+    await Rating.forge(rating).save();
+  })
+
+  return movieQuery;
+}
+
+function prepareMovieInformations(movie) {
   const { data } = movie;
+
   const movieInformations = {}
 
   for (const key in data) {
@@ -16,9 +36,5 @@ export async function createMovie(movie) {
     }
   }
 
-  const { ratings, response, ...parsedData } = movieInformations;
-
-  const movieQuery = await Movie.forge(parsedData).save();
-  
-  return movieQuery;
+  return movieInformations;
 }
