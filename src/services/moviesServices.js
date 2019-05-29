@@ -2,7 +2,7 @@ import Movie from '../models/movie';
 import Rating from '../models/rating';
 
 export function fetchAllMovies() {
-  return Movie.fetchAll({ withRelated: 'ratings' });
+  return Movie.fetchAll({ withRelated: ['ratings', 'comments'] });
 }
 
 export async function createMovie(movie) {

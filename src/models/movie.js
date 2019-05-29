@@ -1,5 +1,6 @@
 import bookshelf from '../db';
 import Rating from './rating';
+import Comment from './comment';
 
 const TABLE_NAME = 'movies';
 
@@ -14,6 +15,10 @@ class Movie extends bookshelf.Model {
 
   ratings() {
     return this.hasMany(Rating);
+  }
+
+  comments() {
+    return this.hasMany(Comment);
   }
 }
 
