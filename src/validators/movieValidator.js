@@ -9,7 +9,7 @@ const SCHEMA = {
     .required()
 };
 
-async function moviesValidator(req, res, next) {
+async function movieValidator(req, res, next) {
   const { body } = req;
 
   const { error } = await asyncWrapper(validate(body, SCHEMA));
@@ -17,4 +17,4 @@ async function moviesValidator(req, res, next) {
   error ? next(error) : next();
 }
 
-export { moviesValidator };
+export { movieValidator };
