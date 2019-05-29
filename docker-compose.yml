@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mysql:
+    image: mariadb:10.1.19
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql:rw
+    environment:
+      MYSQL_DATABASE: ng_rest
+      MYSQL_USER: ng_user
+      MYSQL_PASSWORD: ng_password
+      MYSQL_ROOT_PASSWORD: secretpassword
+  mysql_test:
+    image: mariadb:10.1.19
+    ports:
+      - 3307:3306
+    volumes:
+      - dbdata_test:/var/lib/mysql:rw
+    environment:
+      MYSQL_DATABASE: ng_rest_test
+      MYSQL_USER: ng_user
+      MYSQL_PASSWORD: ng_password
+      MYSQL_ROOT_PASSWORD: secretpassword
+  ng-rest:
+    build: .
+    volumes:
+      - .env.docker:/app/.env
+    ports:
+      - '8080:8080'
+    entrypoint: /bin/sh
+    command: ['./mysql-wait.sh']
+    depends_on:
+      - mysql
+      - mysql_test
+    links:
+      - mysql
+      - mysql_test
+volumes:
+  dbdata: {}
+  dbdata_test: {}
