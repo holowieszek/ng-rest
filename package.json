@@ -4,12 +4,14 @@
   "description": "Netguru REST API",
   "main": "index.js",
   "scripts": {
+    "start": "node dist",
+    "prestart": "npm run build",
+    "build": "rimraf dist && babel src -D --out-dir app/dist",
     "test": "cross-env NODE_ENV=test mocha --exit --recursive --require @babel/register test",
     "test:coverage": "cross-env NODE_ENV=test nyc --require @babel/register --reporter lcov --reporter text mocha --exit --recursive test",
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint 'src/**/*.js' --fix",
     "prettier": "prettier --write **/*.{js,json,yml,yaml,md}",
-    "start": "node dist",
     "start:dev": "nodemon --watch .env --watch src --exec babel-node src --source-maps",
     "migrate": "knex migrate:latest --knexfile src/knexconfig.js",
     "make:migration": "knex migrate:make --knexfile src/knexconfig.js",
@@ -68,6 +70,7 @@
     "nodemon": "^1.19.1",
     "nyc": "^14.1.1",
     "prettier": "^1.17.1",
+    "rimraf": "^2.6.3",
     "supertest": "^4.0.2"
   },
   "engines": {
