@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', (req, res) => {
   res.status(HttpStatus.OK).json({
-    app: req.app.locals.title,
+    title: req.app.locals.title,
     version: req.app.locals.version
   });
 });
