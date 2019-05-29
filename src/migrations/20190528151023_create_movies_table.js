@@ -24,6 +24,7 @@ export async function up(knex) {
     table.string('boxoffice');
     table.string('production');
     table.string('website');
+    table.integer('totalSeasons');
     table.timestamps();
   });
 }
