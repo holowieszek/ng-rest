@@ -1,6 +1,6 @@
 export async function up(knex) {
   await knex.schema.createTable('movies', table => {
-    table.increments();
+    table.increments('id').primary();
     table.string('title');
     table.string('year');
     table.string('rated');
@@ -24,6 +24,7 @@ export async function up(knex) {
     table.string('boxoffice');
     table.string('production');
     table.string('website');
+    table.integer('totalSeasons');
     table.timestamps();
   });
 }
