@@ -1,7 +1,7 @@
 export async function up(knex) {
   await knex.schema.createTable('movies', table => {
     table.increments('id').primary();
-    table.string('title');
+    table.string('title').unique();
     table.string('year');
     table.string('rated');
     table.string('released');
