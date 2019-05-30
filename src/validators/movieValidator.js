@@ -4,9 +4,9 @@ import HttpStatus from 'http-status-codes';
 
 const movieValidator = {
   movie: [
-    body('movie', 'Movie must not be empty').isLength({ min: 1 }),
+    body('title', 'Movie must not be empty').isLength({ min: 1 }),
 
-    sanitizeBody('author')
+    sanitizeBody('title')
       .trim()
       .escape(),
 

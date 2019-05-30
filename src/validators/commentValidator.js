@@ -6,11 +6,15 @@ const commentValidator = {
   comment: [
     body('author', 'Author must not be empty').isLength({ min: 1 }),
     body('comment', 'Comment must not be empty').isLength({ min: 1 }),
+    body('movieId', 'MovieID must be integer higher than 0').isInt({ min: 1 }),
 
     sanitizeBody('author')
       .trim()
       .escape(),
     sanitizeBody('comment')
+      .trim()
+      .escape(),
+    sanitizeBody('movieId')
       .trim()
       .escape(),
 

@@ -24,14 +24,12 @@ describe('Movies Controller Test', () => {
       .post('/api/v1/movies')
       .send(movie)
       .end((err, res) => {
-        const { code, message, details } = res.body.error;
+        const { title } = res.body.errors;
 
-        expect(res.statusCode).to.be.equal(400);
-        expect(code).to.be.equal(400);
-        expect(message).to.be.equal('Bad Request');
-        expect(details).to.be.an('array');
-        expect(details[0]).to.have.property('message');
-        expect(details[0]).to.have.property('param', 'title');
+        expect(res.statusCode).to.be.equal(422);
+        expect(title.msg).to.contains('must not be empty');
+        expect(title).to.be.an('object');
+        expect(title).to.have.property('location', 'body');
         done();
       });
   });
@@ -70,27 +68,6 @@ describe('Movies Controller Test', () => {
         expect(res.statusCode).to.be.equal(404);
         expect(code).to.be.equal(404);
         expect(message).to.be.equal('Movie not found!');
-        done();
-      });
-  });
-
-  it('should respond with error if invalid data are passing', done => {
-    const movie = {
-      invalidKey: 'value'
-    };
-
-    request(app)
-      .post('/api/v1/movies')
-      .send(movie)
-      .end((err, res) => {
-        const { code, message, details } = res.body.error;
-
-        expect(res.statusCode).to.be.equal(400);
-        expect(code).to.be.equal(400);
-        expect(message).to.be.equal('Bad Request');
-        expect(details).to.be.an('array');
-        expect(details[0]).to.have.property('message');
-        // console.log(details);
         done();
       });
   });

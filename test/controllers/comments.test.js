@@ -26,13 +26,11 @@ describe('Comments Controller Test', () => {
       .post('/api/v1/comments')
       .send(comment)
       .end((err, res) => {
-        const { code, message, details } = res.body.error;
+        const { comment } = res.body.errors;
 
-        expect(res.statusCode).to.be.equal(400);
-        expect(code).to.be.equal(400);
-        expect(message).to.be.equal('Bad Request');
-        expect(details).to.be.an('array');
-        expect(details[0]).to.have.property('param', 'author');
+        expect(res.statusCode).to.be.equal(422);
+        expect(comment.msg).to.contains('must not be empty');
+        expect(comment).to.be.an('object');
         done();
       });
   });
@@ -68,13 +66,11 @@ describe('Comments Controller Test', () => {
       .post('/api/v1/comments')
       .send(comment)
       .end((err, res) => {
-        const { code, message, details } = res.body.error;
+        const { movieId } = res.body.errors;
 
-        expect(res.statusCode).to.be.equal(400);
-        expect(code).to.be.equal(400);
-        expect(message).to.be.equal('Bad Request');
-        expect(details[0].message).to.be.equal('"movieId" must be a number');
-        expect(details[0]).to.have.property('param', 'movieId');
+        expect(res.statusCode).to.be.equal(422);
+        expect(movieId.msg).to.contains('must be integer higher than 0');
+        expect(movieId).to.be.an('object');
         done();
       });
   });
