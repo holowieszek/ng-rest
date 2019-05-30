@@ -14,6 +14,10 @@ import routes from './routes';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 
+import * as Sentry from '@sentry/node';
+
+Sentry.init({ dsn: process.env.SENTRY_DSN });
+
 const app = express();
 
 const APP_PORT =
@@ -37,6 +41,9 @@ app.use(errorHandler.bodyParser);
 app.use('/api', routes);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
+// Sentry
+app.use(Sentry.Handlers.errorHandler());
+
 // Error Handlers
 app.use(errorHandler.notFound);
 // app.use(errorHandler.methodNotAllowed);
@@ -49,6 +56,14 @@ app.listen(app.get('port'), app.get('host'), () => {
 // Catch unhandled rejections
 process.on('unhandledRejection', err => {
   logger.error('Unhandled rejection', err);
+
+  try {
+    Sentry.captureException(err);
+  } catch (err) {
+    logger.error('Raven error', err);
+  } finally {
+    process.exit(1);
+  }
 });
 
 export default app;
