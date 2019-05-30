@@ -11,6 +11,8 @@ import bodyParser from 'body-parser';
 import logger, { logStream } from './utils/logger';
 import * as errorHandler from './middlewares/errorHandler';
 import routes from './routes';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocument from './swagger.json';
 
 const app = express();
 
@@ -33,6 +35,7 @@ app.use(errorHandler.bodyParser);
 
 // Routing
 app.use('/api', routes);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Error Handlers
 app.use(errorHandler.notFound);
