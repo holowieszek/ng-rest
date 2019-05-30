@@ -5,7 +5,7 @@ import app from '../../src/index';
 describe('Comments Controller Test', () => {
   it('should return list of comments', done => {
     request(app)
-      .get('/api/comments')
+      .get('/api/v1/comments')
       .end((err, res) => {
         const { data } = res.body;
 
@@ -23,7 +23,7 @@ describe('Comments Controller Test', () => {
     };
 
     request(app)
-      .post('/api/comments')
+      .post('/api/v1/comments')
       .send(comment)
       .end((err, res) => {
         const { code, message, details } = res.body.error;
@@ -45,7 +45,7 @@ describe('Comments Controller Test', () => {
     };
 
     request(app)
-      .post('/api/comments')
+      .post('/api/v1/comments')
       .send(comment)
       .end((err, res) => {
         const { code, message } = res.body.error;
@@ -65,7 +65,7 @@ describe('Comments Controller Test', () => {
     };
 
     request(app)
-      .post('/api/comments')
+      .post('/api/v1/comments')
       .send(comment)
       .end((err, res) => {
         const { code, message, details } = res.body.error;

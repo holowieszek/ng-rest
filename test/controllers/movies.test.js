@@ -5,7 +5,7 @@ import app from '../../src/index';
 describe('Movies Controller Test', () => {
   it('should return list of movies', done => {
     request(app)
-      .get('/api/movies')
+      .get('/api/v1/movies')
       .end((err, res) => {
         const { data } = res.body;
 
@@ -21,7 +21,7 @@ describe('Movies Controller Test', () => {
     };
 
     request(app)
-      .post('/api/movies')
+      .post('/api/v1/movies')
       .send(movie)
       .end((err, res) => {
         const { code, message, details } = res.body.error;
@@ -42,7 +42,7 @@ describe('Movies Controller Test', () => {
     };
 
     request(app)
-      .post('/api/movies')
+      .post('/api/v1/movies')
       .send(movie)
       .end((err, res) => {
         const { data } = res.body;
@@ -62,7 +62,7 @@ describe('Movies Controller Test', () => {
     };
 
     request(app)
-      .post('/api/movies')
+      .post('/api/v1/movies')
       .send(movie)
       .end((err, res) => {
         const { code, message } = res.body.error;
@@ -80,7 +80,7 @@ describe('Movies Controller Test', () => {
     };
 
     request(app)
-      .post('/api/movies')
+      .post('/api/v1/movies')
       .send(movie)
       .end((err, res) => {
         const { code, message, details } = res.body.error;
