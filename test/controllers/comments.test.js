@@ -52,7 +52,7 @@ describe('Comments Controller Test', () => {
 
         expect(res.statusCode).to.be.equal(500);
         expect(code).to.be.equal(500);
-        expect(message).to.be.equal('ER_NO_REFERENCED_ROW_2');
+        expect(message).to.contains('Cannot add or update a child row: a foreign key constraint fails');
         done();
       });
   });
