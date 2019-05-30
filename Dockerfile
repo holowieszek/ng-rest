@@ -1,6 +1,5 @@
 FROM node:lts-jessie
 
-RUN apt-get update && apt-get upgrade -y && apt-get install mysql-client -y
 # Port to listen on
 EXPOSE 8080
 

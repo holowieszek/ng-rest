@@ -10,6 +10,7 @@
 # npm run migrate
 # npm run start:dev
 
+# this sleep... 
 set -e
 
 sleep 30
