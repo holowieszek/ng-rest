@@ -33,7 +33,7 @@ function buildError(err) {
 
   return {
     code: _httpStatusCodes.default.INTERNAL_SERVER_ERROR,
-    message: err.code || _httpStatusCodes.default.getStatusText(_httpStatusCodes.default.INTERNAL_SERVER_ERROR)
+    message: err.sqlMessage || err.code || _httpStatusCodes.default.getStatusText(_httpStatusCodes.default.INTERNAL_SERVER_ERROR)
   };
 }
 
