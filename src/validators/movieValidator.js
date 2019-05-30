@@ -1,20 +1,27 @@
-import Joi from '@hapi/joi';
+import { body, validationResult } from 'express-validator/check';
+import { sanitizeBody } from 'express-validator/filter';
+import HttpStatus from 'http-status-codes';
 
-import validate from '../utils/validate';
-import asyncWrapper from '../utils/asyncWrapper';
+const movieValidator = {
+  movie: [
+    body('movie', 'Movie must not be empty').isLength({ min: 1 }),
 
-const SCHEMA = {
-  title: Joi.string()
-    .label('title')
-    .required()
+    sanitizeBody('author')
+      .trim()
+      .escape(),
+
+    (req, res, next) => {
+      const validation = validationResult(req);
+
+      if (!validation.isEmpty()) {
+        return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
+          errors: validation.mapped()
+        });
+      }
+
+      next();
+    }
+  ]
 };
-
-async function movieValidator(req, res, next) {
-  const { body } = req;
-
-  const { error } = await asyncWrapper(validate(body, SCHEMA));
-
-  error ? next(error) : next();
-}
 
 export { movieValidator };

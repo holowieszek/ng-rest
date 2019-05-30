@@ -1,19 +1,35 @@
-import Joi from '@hapi/joi';
+import { query, validationResult } from 'express-validator/check';
+import { sanitizeQuery } from 'express-validator/filter';
+import HttpStatus from 'http-status-codes';
 
-import validate from '../utils/validate';
-import asyncWrapper from '../utils/asyncWrapper';
+const paginationValidator = {
+  pagination: [
+    query('page', 'Page must be higher than 0')
+      .optional()
+      .isInt({ min: 1 }),
+    query('limit', 'Limit must be higher than 0')
+      .optional()
+      .isInt({ min: 1 }),
 
-const SCHEMA = {
-  page: Joi.number().positive(),
-  limit: Joi.number().positive()
+    sanitizeQuery('page')
+      .trim()
+      .escape(),
+    sanitizeQuery('limit')
+      .trim()
+      .escape(),
+
+    (req, res, next) => {
+      const validation = validationResult(req);
+
+      if (!validation.isEmpty()) {
+        return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
+          errors: validation.mapped()
+        });
+      }
+
+      next();
+    }
+  ]
 };
-
-async function paginationValidator(req, res, next) {
-  const { query } = req;
-
-  const { error } = await asyncWrapper(validate(query, SCHEMA));
-
-  error ? next(error) : next();
-}
 
 export { paginationValidator };

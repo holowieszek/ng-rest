@@ -1,26 +1,31 @@
-import Joi from '@hapi/joi';
+import { body, validationResult } from 'express-validator/check';
+import { sanitizeBody } from 'express-validator/filter';
+import HttpStatus from 'http-status-codes';
 
-import validate from '../utils/validate';
-import asyncWrapper from '../utils/asyncWrapper';
+const commentValidator = {
+  comment: [
+    body('author', 'Author must not be empty').isLength({ min: 1 }),
+    body('comment', 'Comment must not be empty').isLength({ min: 1 }),
 
-const SCHEMA = {
-  author: Joi.string()
-    .label('author')
-    .required(),
-  comment: Joi.string()
-    .label('comment')
-    .required(),
-  movieId: Joi.number()
-    .label('movieId')
-    .required()
+    sanitizeBody('author')
+      .trim()
+      .escape(),
+    sanitizeBody('comment')
+      .trim()
+      .escape(),
+
+    (req, res, next) => {
+      const validation = validationResult(req);
+
+      if (!validation.isEmpty()) {
+        return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
+          errors: validation.mapped()
+        });
+      }
+
+      next();
+    }
+  ]
 };
-
-async function commentValidator(req, res, next) {
-  const { body } = req;
-
-  const { error } = await asyncWrapper(validate(body, SCHEMA));
-
-  error ? next(error) : next();
-}
 
 export { commentValidator };
