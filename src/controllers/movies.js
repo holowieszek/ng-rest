@@ -5,7 +5,9 @@ import * as moviesService from '../services/moviesServices';
 import asyncWrapper from '../utils/asyncWrapper';
 
 export async function fetchAll(req, res, next) {
-  const { error, result } = await asyncWrapper(moviesService.fetchAllMovies());
+  const { page, limit } = req.query;
+
+  const { error, result } = await asyncWrapper(moviesService.fetchAllMovies(page, limit));
 
   !error ? returnResponse(res, HttpStatus.OK, result) : next(error);
 }
