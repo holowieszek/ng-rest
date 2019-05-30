@@ -1,8 +1,14 @@
 import Movie from '../models/movie';
 import Rating from '../models/rating';
 
-export function fetchAllMovies() {
-  return Movie.fetchAll({ withRelated: ['ratings', 'comments'] });
+export async function fetchAllMovies(page = 1, limit = 10) {
+  const movies = await Movie.fetchPage({
+    pageSize: limit,
+    page,
+    withRelated: ['ratings', 'comments']
+  })
+
+  return movies;
 }
 
 export async function createMovie(movie) {

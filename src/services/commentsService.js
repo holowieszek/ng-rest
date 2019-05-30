@@ -1,7 +1,13 @@
 import Comment from '../models/comment';
 
-export function fetchAllComments() {
-  return Comment.fetchAll({ withRelated: 'movie' });
+export async function fetchAllComments(page = 1, limit = 10) {
+  const comments = await Comment.fetchPage({
+    pageSize: limit,
+    page,
+    withRelated: ['movie']
+  })
+
+  return comments;
 }
 
 export async function createComment(data) {
