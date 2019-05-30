@@ -12,6 +12,10 @@ router.get('/', (req, res) => {
   res.status(HttpStatus.OK).json({ title, version });
 });
 
+router.get('/test', (req, res, next) => {
+  res.status(200).json('hello world');
+});
+
 router.use('/movies', moviesRoutes);
 router.use('/comments', commentsRoutes);
 
