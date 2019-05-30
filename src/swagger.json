@@ -42,9 +42,9 @@
       },
       "post": {
         "tags": ["movies"],
-        "summary": "Add a new pet to the database",
+        "summary": "Add a new movie to the database",
         "description": "",
-        "operationId": "addPet",
+        "operationId": "addMovie",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -54,7 +54,7 @@
             "description": "Movie will be added to the database",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Movie"
             }
           }
         ],
@@ -111,7 +111,7 @@
     }
   },
   "definitions": {
-    "Pet": {
+    "Movie": {
       "type": "object",
       "required": ["title"],
       "properties": {
