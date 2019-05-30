@@ -7,10 +7,9 @@ import commentsRoutes from './routes/commentsRoutes';
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.status(HttpStatus.OK).json({
-    title: req.app.locals.title,
-    version: req.app.locals.version
-  });
+  const { title, version } = req.app.locals;
+
+  res.status(HttpStatus.OK).json({ title, version });
 });
 
 router.use('/movies', moviesRoutes);
