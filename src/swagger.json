@@ -34,6 +34,20 @@
         "operationId": "getMovies",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "?page",
+            "description": "Page of the the returning items",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "&limit",
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of movies"
@@ -79,6 +93,20 @@
         "operationId": "getComments",
         "consumes": ["application/json"],
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "?page",
+            "description": "Page of the the returning items",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "&limit",
+            "type": "integer",
+            "description": "The numbers of items to return"
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of comments"
