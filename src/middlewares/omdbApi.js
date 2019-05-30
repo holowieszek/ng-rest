@@ -1,5 +1,5 @@
 import axios from '../axios';
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import asyncWrapper from '../utils/asyncWrapper';
 
 const omdbApi = async (req, res, next) => {

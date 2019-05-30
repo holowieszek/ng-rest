@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 function validate(data, schema) {
   return Joi.validate(data, schema, { abortEarly: false }, err => {
