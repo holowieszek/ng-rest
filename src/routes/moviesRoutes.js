@@ -7,7 +7,7 @@ import { paginationValidator } from '../validators/paginationValidator';
 
 const router = Router();
 
-router.get('/', paginationValidator, moviesController.fetchAll);
-router.post('/', movieValidator, omdbApi, moviesController.create);
+router.get('/', paginationValidator.pagination, moviesController.fetchAll);
+router.post('/', movieValidator.movie, omdbApi, moviesController.create);
 
 export default router;

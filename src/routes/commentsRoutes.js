@@ -5,7 +5,7 @@ import { paginationValidator } from '../validators/paginationValidator';
 
 const router = Router();
 
-router.get('/', paginationValidator, commentsController.fetchAll);
-router.post('/', commentValidator, commentsController.create);
+router.get('/', paginationValidator.pagination, commentsController.fetchAll);
+router.post('/', commentValidator.comment, commentsController.create);
 
 export default router;
