@@ -8,7 +8,7 @@ export async function up(knex) {
     table.string('runtime');
     table.string('genre');
     table.string('director');
-    table.string('writer');
+    table.longtext('writer');
     table.string('actors');
     table.string('plot');
     table.string('language');
