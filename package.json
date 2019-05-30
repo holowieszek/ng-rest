@@ -1,7 +1,7 @@
 {
   "name": "ng-rest",
   "version": "1.0.0",
-  "description": "Netguru REST API",
+  "description": "Netguru REST API test",
   "main": "index.js",
   "scripts": {
     "start": "node dist",
