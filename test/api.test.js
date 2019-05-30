@@ -5,7 +5,7 @@ import request from 'supertest';
 describe('Base API Test', () => {
   it('should return API version and title', done => {
     request(app)
-      .get('/api')
+      .get('/api/v1')
       .end((err, res) => {
         const { title, version } = res.body;
 
