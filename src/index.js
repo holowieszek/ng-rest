@@ -38,7 +38,7 @@ app.use(morgan('tiny', { stream: logStream }));
 app.use(errorHandler.bodyParser);
 
 // Routing
-app.use('/api', routes);
+app.use('/api/v1/', routes);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // Sentry
