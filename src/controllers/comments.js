@@ -5,7 +5,9 @@ import * as commentsService from '../services/commentsService';
 import asyncWrapper from '../utils/asyncWrapper';
 
 export async function fetchAll(req, res, next) {
-  const { error, result } = await asyncWrapper(commentsService.fetchAllComments());
+  const { page, limit } = req.query;
+
+  const { error, result } = await asyncWrapper(commentsService.fetchAllComments(page, limit));
 
   !error ? returnResponse(res, HttpStatus.OK, result) : next(error);
 }
