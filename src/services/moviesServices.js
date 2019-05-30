@@ -16,11 +16,7 @@ export async function createMovie(movie) {
 
   const movieQuery = await Movie.forge(parsedData).save();
 
-  const ratingsInformation = ratings.map(rating => ({
-    movie_id: movieQuery.id,
-    source: rating.Source,
-    value: rating.Value
-  }))
+  const ratingsInformation = prepareRatingInformations(ratings, movieQuery);
 
   ratingsInformation.forEach(async rating => {
     await Rating.forge(rating).save();
@@ -43,4 +39,14 @@ function prepareMovieInformations(movie) {
   }
 
   return movieInformations;
+}
+
+function prepareRatingInformations(ratings, movie) {
+  const ratingInformations = ratings.map(rating => ({
+    movie_id: movie.id,
+    source: rating.Source,
+    value: rating.Value
+  }));
+  
+  return ratingInformations;
 }
