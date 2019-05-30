@@ -1,0 +1,159 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "REST API",
+    "version": "1.0.0",
+    "title": "Netguru",
+    "contact": {
+      "email": "holowieszko.m@gmail.com"
+    },
+    "license": {
+      "name": "ICS",
+      "url": "https://choosealicense.com/licenses/isc/"
+    }
+  },
+  "host": "warm-citadel-62898.herokuapp.com",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "movies",
+      "description": "Everything about movies"
+    },
+    {
+      "name": "comments",
+      "description": "Everything about comments"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/movies": {
+      "get": {
+        "tags": ["movies"],
+        "summary": "List of all movies",
+        "description": "",
+        "operationId": "getMovies",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "List of movies"
+          }
+        }
+      },
+      "post": {
+        "tags": ["movies"],
+        "summary": "Add a new pet to the database",
+        "description": "",
+        "operationId": "addPet",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "title",
+            "description": "Movie will be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Movie added"
+          },
+          "401": {
+            "description": "OMDB API unauthorized"
+          },
+          "404": {
+            "description": "Movie not found"
+          }
+        }
+      }
+    },
+    "/comments": {
+      "get": {
+        "tags": ["comments"],
+        "summary": "List of all comments",
+        "description": "",
+        "operationId": "getComments",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "List of comments"
+          }
+        }
+      },
+      "post": {
+        "tags": ["comments"],
+        "summary": "Add a new comment to the database",
+        "description": "",
+        "operationId": "addComment",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "author",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comment added"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Pet": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "Titanic"
+        }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "required": ["author", "comment", "movieId"],
+      "properties": {
+        "author": {
+          "type": "string",
+          "example": "Jan Kowalski"
+        },
+        "comment": {
+          "type": "string",
+          "example": "Lorem ipsum"
+        },
+        "movieId": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    }
+  }
+}
