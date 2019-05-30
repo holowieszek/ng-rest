@@ -7,6 +7,10 @@ EXPOSE 8080
 WORKDIR /app
 COPY . /app/
 
+COPY package*.json ./
+
+RUN npm install
+COPY . .
+
 # Default app commands
-ENTRYPOINT ["npm install"]
 CMD ["npm", "run", "start:dev"]
