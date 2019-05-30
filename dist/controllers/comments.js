@@ -20,9 +20,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 async function fetchAll(req, res, next) {
   const {
+    page,
+    limit
+  } = req.query;
+  const {
     error,
     result
-  } = await (0, _asyncWrapper.default)(commentsService.fetchAllComments());
+  } = await (0, _asyncWrapper.default)(commentsService.fetchAllComments(page, limit));
   !error ? (0, _response.returnResponse)(res, _httpStatusCodes.default.OK, result) : next(error);
 }
 

@@ -10,10 +10,13 @@ var _comment = _interopRequireDefault(require("../models/comment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function fetchAllComments() {
-  return _comment.default.fetchAll({
-    withRelated: 'movie'
+async function fetchAllComments(page = 1, limit = 10) {
+  const comments = await _comment.default.fetchPage({
+    pageSize: limit,
+    page,
+    withRelated: ['movie']
   });
+  return comments;
 }
 
 async function createComment(data) {

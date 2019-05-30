@@ -9,14 +9,14 @@ exports.down = down;
 async function up(knex) {
   await knex.schema.createTable('movies', table => {
     table.increments('id').primary();
-    table.string('title');
+    table.string('title').unique();
     table.string('year');
     table.string('rated');
     table.string('released');
     table.string('runtime');
     table.string('genre');
     table.string('director');
-    table.string('writer');
+    table.longtext('writer');
     table.string('actors');
     table.string('plot');
     table.string('language');

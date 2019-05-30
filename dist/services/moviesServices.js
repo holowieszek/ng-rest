@@ -12,10 +12,13 @@ var _rating = _interopRequireDefault(require("../models/rating"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function fetchAllMovies() {
-  return _movie.default.fetchAll({
+async function fetchAllMovies(page = 1, limit = 10) {
+  const movies = await _movie.default.fetchPage({
+    pageSize: limit,
+    page,
     withRelated: ['ratings', 'comments']
   });
+  return movies;
 }
 
 async function createMovie(movie) {
