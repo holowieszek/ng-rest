@@ -7,6 +7,6 @@ import knexConfig from './knexconfig';
 const knex = knexJS(knexConfig);
 const bookshelf = bookshelfJS(knex);
 
-bookshelf.plugin(['virtuals', 'pagination', 'visibility']);
+bookshelf.plugin(['pagination']);
 
 export default bookshelf;
