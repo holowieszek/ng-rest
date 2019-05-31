@@ -13,7 +13,7 @@
     }
   },
   "host": "warm-citadel-62898.herokuapp.com",
-  "basePath": "/api",
+  "basePath": "/api/v1",
   "tags": [
     {
       "name": "movies",
