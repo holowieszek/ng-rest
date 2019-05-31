@@ -45,7 +45,6 @@ describe('Movies Controller Test', () => {
       .end((err, res) => {
         const { data } = res.body;
 
-        // console.log(data);
         expect(res.statusCode).to.be.equal(201);
         expect(data).to.be.an('object');
         expect(data).to.have.property('title');
