@@ -38,7 +38,7 @@
   "dependencies": {
     "@hapi/boom": "^7.4.2",
     "@sentry/node": "^5.3.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bookshelf": "^0.14.2",
     "compression": "^1.7.4",
